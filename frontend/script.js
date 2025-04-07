@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:10000";  // Замените на адрес вашего FastAPI сервера
+const API_URL = "http://localhost:10000";
 
 function showRegisterForm() {
   document.getElementById('auth-container').style.display = 'none';
@@ -16,18 +16,21 @@ async function login() {
 
   if (login && password) {
     try {
-      const response = await fetch(`${API_URL}/usercheck`, {  // Здесь указываем API URL для логина
+      const formData = new URLSearchParams();
+      formData.append("login", login);
+      formData.append("password", password);
+
+      const response = await fetch(`${API_URL}/usercheck`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ username: login, password: password })
+        body: formData
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
-        // Если вход успешен, скрываем формы и показываем задачи и календарь
         document.getElementById('auth-container').style.display = 'none';
         document.getElementById('register-container').style.display = 'none';
         document.getElementById('task-container').style.display = 'block';
@@ -52,16 +55,20 @@ async function register() {
 
   if (newLogin && newPassword) {
     try {
-      const response = await fetch(`${API_URL}/useradd`, {  // Здесь указываем API URL для регистрации
+      const formData = new URLSearchParams();
+      formData.append("login", newLogin);
+      formData.append("password", newPassword);
+
+      const response = await fetch(`${API_URL}/useradd`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ username: newLogin, password: newPassword })
+        body: formData
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
         alert('Регистрация успешна!');
         showLoginForm();
@@ -86,5 +93,21 @@ function logout() {
 }
 
 function addTask() {
-  alert('Задача добавлена');
+  const dayIds = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const day = prompt("В какой день добавить задачу? (пн, вт, ср, чт, пт, сб, вс)").toLowerCase();
+  const text = prompt("Введите текст задачи:");
+
+  const dayMap = {
+    "пн": "mon", "вт": "tue", "ср": "wed", "чт": "thu",
+    "пт": "fri", "сб": "sat", "вс": "sun"
+  };
+
+  if (text && dayMap[day]) {
+    const task = document.createElement('div');
+    task.className = 'task';
+    task.textContent = text;
+    document.getElementById(dayMap[day]).appendChild(task);
+  } else {
+    alert("Неверный день недели!");
+  }
 }
