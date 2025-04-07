@@ -1,0 +1,19 @@
+.navbar.bg-dark {
+    background-color: rgb(216, 39, 39) !important; /* Изменяем цвет фона на красный */
+}
+
+body {
+    background-color: #e0e0e0;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.table {
+    margin-top: 20px;
+}

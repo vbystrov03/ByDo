@@ -1,0 +1,27 @@
+services:
+  auth-service:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    build: ./Auth-ToDo
+    ports:
+      - "10000:10000"
+    networks:
+      - my-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8000:8000"
+    depends_on:
+      auth-service:
+        condition: service_healthy
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
