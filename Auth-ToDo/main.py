@@ -2,8 +2,17 @@ import fastapi
 import sqlite3, logging
 import uvicorn
 import bcrypt, os, sys
+from fastapi.middleware.cors import CORSMiddleware
 
 app = fastapi.FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Разрешите все источники
+    allow_credentials=True,
+    allow_methods=["*"],  # Разрешите все методы (GET, POST, и т.д.)
+    allow_headers=["*"],  # Разрешите все заголовки
+)
 
 @app.get("/users")
 def SelectAllFromDB():
