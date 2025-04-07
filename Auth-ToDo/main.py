@@ -1,6 +1,5 @@
 import fastapi
 import sqlite3, logging
-import requests
 import uvicorn
 import bcrypt, os, sys
 
@@ -80,4 +79,4 @@ def check_cred_from_auth_db(login: str = fastapi.Form(...), password: str = fast
 
 if not os.path.exists("auth.db"):
     CreateAuthDB()
-uvicorn.run(app, port=10000)
+uvicorn.run(app, host="0.0.0.0", port=10000)
