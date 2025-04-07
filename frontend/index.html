@@ -1,13 +1,88 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByDo - Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Левая колонка с меню -->
+    <div class="sidebar">
+      <h2>Меню</h2>
+      <div id="auth-container">
+        <h3>Авторизация</h3>
+        <div class="auth-form">
+          <label for="login">Логин</label>
+          <input type="text" id="login" placeholder="Введите логин" required>
+          
+          <label for="password">Пароль</label>
+          <input type="password" id="password" placeholder="Введите пароль" required>
+          
+          <button onclick="login()">Войти</button>
+        </div>
+        <p>Нет аккаунта? <a href="#" onclick="showRegisterForm()">Зарегистрироваться</a></p>
+      </div>
+      
+      <div id="register-container" style="display: none;">
+        <h3>Регистрация</h3>
+        <div class="auth-form">
+          <label for="new-login">Логин</label>
+          <input type="text" id="new-login" placeholder="Введите логин" required>
+          
+          <label for="new-password">Пароль</label>
+          <input type="password" id="new-password" placeholder="Введите пароль" required>
+          
+          <button onclick="register()">Зарегистрироваться</button>
+        </div>
+        <p>Уже есть аккаунт? <a href="#" onclick="showLoginForm()">Войти</a></p>
+      </div>
+      
+      <div id="task-container" style="display: none;">
+        <h3>Меню</h3>
+        <button onclick="addTask()">Добавить задачу</button>
+        <button onclick="logout()">Выйти</button>
+      </div>
+    </div>
+    
+    <!-- Правая часть с календарем или информацией -->
+    <div class="main-content">
+      <div id="service-description">
+        <h2>Добро пожаловать в ByDo!</h2>
+        <p>ByDo - это удобный менеджер задач, который помогает организовать вашу работу и личные дела. Регистрируйтесь, входите и начните использовать сервис прямо сейчас!</p>
+      </div>
+      
+      <div id="calendar-container" style="display: none;">
+        <h2>Календарь</h2>
+        <div id="calendar">
+          <div class="calendar-header">
+            <span>Пн</span>
+            <span>Вт</span>
+            <span>Ср</span>
+            <span>Чт</span>
+            <span>Пт</span>
+            <span>Сб</span>
+            <span>Вс</span>
+          </div>
+          <div class="calendar-days">
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day">4</div>
+            <div class="calendar-day">5</div>
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <!-- Добавьте остальные дни недели -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
