@@ -31,6 +31,9 @@ async function login() {
       const data = await response.json();
 
       if (response.ok) {
+        // Сохраняем токен в localStorage
+        localStorage.setItem('access_token', data.access_token);
+
         document.getElementById('auth-container').style.display = 'none';
         document.getElementById('register-container').style.display = 'none';
         document.getElementById('task-container').style.display = 'block';
@@ -85,11 +88,36 @@ async function register() {
 }
 
 function logout() {
+  // Удаляем токен при выходе
+  localStorage.removeItem('access_token');  
+
   document.getElementById('task-container').style.display = 'none';
   document.getElementById('auth-container').style.display = 'block';
   document.getElementById('register-container').style.display = 'none';
   document.getElementById('service-description').style.display = 'block';
   document.getElementById('calendar-container').style.display = 'none';
+}
+
+async function fetchProtectedData() {
+  const token = localStorage.getItem('access_token');  // Получаем токен из localStorage
+
+  if (token) {
+    try {
+      const response = await fetch(`${API_URL}/protected_route`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      console.log(data); // Обрабатываем ответ от защищенного маршрута
+    } catch (error) {
+      console.error('Ошибка при запросе защищенного маршрута:', error);
+    }
+  } else {
+    alert('Токен не найден. Пожалуйста, авторизуйтесь.');
+  }
 }
 
 function addTask() {
