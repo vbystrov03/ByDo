@@ -10,14 +10,16 @@ function showLoginForm() {
   document.getElementById('register-container').style.display = 'none';
 }
 
-async function login() {
-  const login = document.getElementById('login').value;
+async function getlogin() {
+  console.log("Функция login вызвана");
+  const loginValue = document.getElementById('login').value;
   const password = document.getElementById('password').value;
 
   if (login && password) {
     try {
+      console.log("tryqwer");
       const formData = new URLSearchParams();
-      formData.append("login", login);
+      formData.append("login", loginValue);
       formData.append("password", password);
 
       const response = await fetch(`${API_URL}/usercheck`, {

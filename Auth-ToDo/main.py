@@ -104,9 +104,9 @@ def check_cred_from_auth_db(login: str = fastapi.Form(...), password: str = fast
                     token = Create_JWT_Token(token_data)
                     return {"message":"Верный пароль", "access_token": token, "token_type": "bearer"}
                 else:
-                    return {"error": "Неверный пароль"}
+                    raise fastapi.HTTPException(status_code=401, detail="Неверный пароль")
             else:
-                return {"error": "Пользователь не найден"}
+                raise fastapi.HTTPException(status_code=404, detail="Пользователь не найден")
     except Exception as e:
         raise fastapi.HTTPException(status_code=500, detail=str(e))
 
